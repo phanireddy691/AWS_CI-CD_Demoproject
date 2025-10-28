@@ -71,24 +71,24 @@ resource "aws_security_group" "webSg" {
 }
 
 resource "aws_s3_bucket" "example" {
-  bucket = "abhisheksterraform2023project"
+  bucket = "dineshudaysterraform2025project"
 }
 
 
 resource "aws_instance" "webserver1" {
-  ami                    = "ami-0261755bbcb8c4a84"
+  ami                    = "ami-0360c520857e3138f"
   instance_type          = "t2.micro"
   vpc_security_group_ids = [aws_security_group.webSg.id]
   subnet_id              = aws_subnet.sub1.id
-  user_data              = base64encode(file("userdata.sh"))
+  user_data_base64       = base64encode(file("userdata.sh"))
 }
 
 resource "aws_instance" "webserver2" {
-  ami                    = "ami-0261755bbcb8c4a84"
+  ami                    = "ami-0360c520857e3138f"
   instance_type          = "t2.micro"
   vpc_security_group_ids = [aws_security_group.webSg.id]
   subnet_id              = aws_subnet.sub2.id
-  user_data              = base64encode(file("userdata1.sh"))
+  user_data_base64       = base64encode(file("userdata1.sh"))
 }
 
 #create alb
@@ -138,8 +138,4 @@ resource "aws_lb_listener" "listener" {
     target_group_arn = aws_lb_target_group.tg.arn
     type             = "forward"
   }
-}
-
-output "loadbalancerdns" {
-  value = aws_lb.myalb.dns_name
 }
